@@ -45,13 +45,6 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 // Configuração do método permitido (no caso, apenas GET)
 header("Access-Control-Allow-Methods: GET");
 
-// Restante do seu código PHP...
-
-// Por exemplo, você pode imprimir dados como JSON
-echo json_encode(["mensagem" => "TESTE API FUNCIONANDO"]);
-
-
-
 // Fecha a conexão
 $conn->close();
 ?>
