@@ -12,7 +12,7 @@
 $dataHoraAtual = date('d/m/Y H:i:s');
 
 // Mensagem de boas-vindas
-$mensagem = "Olá Mundo! A data e hora atual são: $dataHoraAtual";
+$mensagem = "FUNCIONANDO! A data e hora atual são: $dataHoraAtual";
 ?>
 
 <!-- Exibe a mensagem na página -->
