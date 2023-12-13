@@ -3,20 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página PHP Simples</title>
+    <title>Teste de Conexão MySQL</title>
 </head>
 <body>
 
 <?php
-// Obtém a data e hora atual
-$dataHoraAtual = date('d/m/Y H:i:s');
+// Configurações do banco de dados
+$hostname = "ateliesogra.mysql.dbaas.com.br";
+$username = "ateliesogra";
+$password = "Atelie@1020";
+$database = "ateliesogra";
 
-// Mensagem de boas-vindas
-$mensagem = "FUNCIONANDO! A data e hora atual são: $dataHoraAtual";
+// Conecta ao banco de dados
+$conn = new mysqli($hostname, $username, $password, $database);
+
+// Verifica a conexão
+if ($conn->connect_error) {
+    die("Falha na conexão com o banco de dados: " . $conn->connect_error);
+}
+
+echo "Conexão bem-sucedida!";
+
+// Fecha a conexão
+$conn->close();
 ?>
-
-<!-- Exibe a mensagem na página -->
-<h1><?php echo $mensagem; ?></h1>
 
 </body>
 </html>
