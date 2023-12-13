@@ -1,13 +1,13 @@
 <?php
 include('db.php');
 
-$result = $conn->query("SELECT * FROM usuarios");
-$usuarios = array();
+$result = $conn->query("SELECT * FROM Usuarios");
+$users = array();
 
 while ($row = $result->fetch_assoc()) {
-    $usuarios[] = $row;
+    $users[] = $row;
 }
 
 header('Content-Type: application/json');
-echo json_encode($usuarios);
+echo json_encode($users);
 ?>
