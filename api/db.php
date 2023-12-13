@@ -34,14 +34,11 @@ if ($result) {
     echo json_encode(array('error' => 'Erro na consulta: ' . $conn->error));
 }
 
+header('Content-Type: application/json');
 // Configurações de CORS
 header("Access-Control-Allow-Origin: *"); // Permite solicitações de qualquer origem
-// OU
-// header("Access-Control-Allow-Origin: http://seu-domino-angular.com"); // Permite solicitações apenas do domínio específico
-
 // Outros cabeçalhos CORS
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-
 // Configuração do método permitido (no caso, apenas GET)
 header("Access-Control-Allow-Methods: GET");
 
