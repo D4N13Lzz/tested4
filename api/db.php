@@ -34,6 +34,24 @@ if ($result) {
     echo json_encode(array('error' => 'Erro na consulta: ' . $conn->error));
 }
 
+// Configurações de CORS
+header("Access-Control-Allow-Origin: *"); // Permite solicitações de qualquer origem
+// OU
+// header("Access-Control-Allow-Origin: http://seu-domino-angular.com"); // Permite solicitações apenas do domínio específico
+
+// Outros cabeçalhos CORS
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+
+// Configuração do método permitido (no caso, apenas GET)
+header("Access-Control-Allow-Methods: GET");
+
+// Restante do seu código PHP...
+
+// Por exemplo, você pode imprimir dados como JSON
+echo json_encode(["mensagem" => "Sua resposta da API PHP"]);
+
+
+
 // Fecha a conexão
 $conn->close();
 ?>
