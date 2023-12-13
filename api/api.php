@@ -1,4 +1,6 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+
 include('db.php');
 
 $result = $conn->query("SELECT * FROM Usuarios");
