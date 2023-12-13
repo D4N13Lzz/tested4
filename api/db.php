@@ -48,7 +48,7 @@ header("Access-Control-Allow-Methods: GET");
 // Restante do seu código PHP...
 
 // Por exemplo, você pode imprimir dados como JSON
-echo json_encode(["mensagem" => "Sua resposta da API PHP"]);
+echo json_encode(["mensagem" => "TESTE API FUNCIONANDO"]);
 
 
 
