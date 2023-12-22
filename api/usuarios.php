@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *'); // Permite requisições de qualquer origem
 
 require_once('db.php');
 
