@@ -33,8 +33,11 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
                 $_SESSION['nome'] = $usuario['nome'];
             }
 
+            // Regenerar o ID da sessão antes do redirecionamento
+            session_regenerate_id(true);
+
             // Certifique-se de finalizar a execução antes do redirecionamento
-            exit(header("Location: api/painel.php"));
+            exit(header("Location: painel.php"));
         } else {
             echo "Falha ao logar! E-mail ou senha incorretos";
         }
