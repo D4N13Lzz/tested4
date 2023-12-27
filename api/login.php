@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $senha = $_POST['senha'];
 
     $sql = "SELECT * FROM usuarios WHERE username = '$username' AND senha = '$senha'";
-    $resultado = $conexao->query($sql);
+    $resultado = $conn->query($sql);
 
     if ($resultado->num_rows > 0) {
         $_SESSION['username'] = $username;
