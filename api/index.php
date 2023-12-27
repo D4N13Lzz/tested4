@@ -1,76 +1,66 @@
 <?php
-include('db.php');
-
-// Inicie a sessão apenas se não estiver ativa
-if (session_status() == PHP_SESSION_NONE) {
     session_start();
-}
 
-if (isset($_POST['email']) || isset($_POST['senha'])) {
+    require_once "config.php";
 
-    if (strlen($_POST['email']) == 0) {
-        echo "Preencha seu e-mail";
-    } else if (strlen($_POST['senha']) == 0) {
-        echo "Preencha sua senha";
-    } else {
-
-        $email = $mysqli->real_escape_string($_POST['email']);
-        $senha = $mysqli->real_escape_string($_POST['senha']);
-
-        $sql_code = "SELECT * FROM usuarios WHERE email = '$email' AND senha = '$senha'";
-        $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
-
-        $quantidade = $sql_query->num_rows;
-
-        if ($quantidade == 1) {
-
-            $usuario = $sql_query->fetch_assoc();
-
-            $_SESSION['id'] = $usuario['id'];
-
-            // Verifique se 'nome' está definido antes de atribuir
-            if (isset($usuario['nome'])) {
-                $_SESSION['nome'] = $usuario['nome'];
-            }
-
-            // Regenerar o ID da sessão antes do redirecionamento
-            session_regenerate_id(true);
-
-            // Certifique-se de finalizar a execução antes do redirecionamento
-            exit(header("Location: painel.php"));
-        } else {
-            echo "Falha ao logar! E-mail ou senha incorretos";
-        }
-
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
     }
 
-}
-?>
-<!DOCTYPE html>
-<html lang="en">
+    $sql = "SELECT * FROM users WHERE name = ? AND email = ?";
 
+    $stmt = $conn->prepare($sql);
+    $stmt ->bind_param("ss", $name, $email);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 1) {
+        $row = $result->fetch_assoc(); 
+
+        if (password_verify($password, $row['password'])) {
+
+            $_SESSION["loggedin"] = true; 
+
+            header("Location: site.php"); 
+            exit; 
+
+        }
+    }
+
+    else {
+        $error = "Usuário ou senha incorretos";
+    }
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="estilo.css">
 </head>
-
 <body>
-    <h1>Acesse sua conta</h1>
-    <form action="" method="POST">
-        <p>
-            <label>E-mail</label>
-            <input type="text" name="email">
-        </p>
-        <p>
-            <label>Senha</label>
-            <input type="password" name="senha">
-        </p>
-        <p>
-            <button type="submit">Entrar</button>
-        </p>
-    </form>
-</body>
+    <h1>Login</h1>
 
+    <form method="post" action="index.php">
+        Nome: <input type="text" name="name" required><br>
+
+        E-mail: <input type="email" name="email" required><br>
+
+        Senha: <input type="password" name="password" required><br>
+
+        <input type="submit" value="Logar">
+
+    </form>
+    <br>
+    <a href="cadastrar.php">Ainda não é cadastrado?</a>
+
+</body>
 </html>
