@@ -1,8 +1,8 @@
 <?php
 include('db.php');
 
-// Inicie a sessão no início do script
-if (!isset($_SESSION)) {
+// Inicie a sessão apenas se não estiver ativa
+if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
@@ -33,12 +33,8 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
                 $_SESSION['nome'] = $usuario['nome'];
             }
 
-            // Inicie a sessão novamente após a validação do login
-            session_start();
-
-            header("Location: painel.php");
-            exit(); // Certifique-se de sair após o redirecionamento
-
+            // Certifique-se de finalizar a execução antes do redirecionamento
+            exit(header("Location: painel.php"));
         } else {
             echo "Falha ao logar! E-mail ou senha incorretos";
         }
