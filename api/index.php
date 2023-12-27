@@ -1,11 +1,16 @@
 <?php
 include('db.php');
 
-if(isset($_POST['email']) || isset($_POST['senha'])) {
+// Inicie a sessão no início do script
+if (!isset($_SESSION)) {
+    session_start();
+}
 
-    if(strlen($_POST['email']) == 0) {
+if (isset($_POST['email']) || isset($_POST['senha'])) {
+
+    if (strlen($_POST['email']) == 0) {
         echo "Preencha seu e-mail";
-    } else if(strlen($_POST['senha']) == 0) {
+    } else if (strlen($_POST['senha']) == 0) {
         echo "Preencha sua senha";
     } else {
 
@@ -17,18 +22,19 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
 
         $quantidade = $sql_query->num_rows;
 
-        if($quantidade == 1) {
-            
+        if ($quantidade == 1) {
+
             $usuario = $sql_query->fetch_assoc();
 
-            if(!isset($_SESSION)) {
-                session_start();
+            $_SESSION['id'] = $usuario['id'];
+
+            // Verifique se 'nome' está definido antes de atribuir
+            if (isset($usuario['nome'])) {
+                $_SESSION['nome'] = $usuario['nome'];
             }
 
-            $_SESSION['id'] = $usuario['id'];
-            $_SESSION['nome'] = $usuario['nome'];
-
             header("Location: painel.php");
+            exit(); // Certifique-se de sair após o redirecionamento
 
         } else {
             echo "Falha ao logar! E-mail ou senha incorretos";
@@ -40,12 +46,14 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
+
 <body>
     <h1>Acesse sua conta</h1>
     <form action="" method="POST">
@@ -62,4 +70,5 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
         </p>
     </form>
 </body>
+
 </html>
