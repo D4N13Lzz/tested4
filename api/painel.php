@@ -1,7 +1,8 @@
 <?php
+include('functions.php');
 
-include('protect.php');
-
+// Chame a função para verificar o login
+verificarLogin();
 ?>
 <!DOCTYPE html>
 <html lang="en">
