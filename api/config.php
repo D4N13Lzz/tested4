@@ -1,6 +1,4 @@
 <?php
-session_start(); 
-
 $usuario = 'ateliesogra';
 $senha = 'Atelie@1020';
 $database = 'ateliesogra';

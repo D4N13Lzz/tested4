@@ -7,35 +7,27 @@
         $name = $_POST['name'];
         $email = $_POST['email'];
         $password = $_POST['password'];
-    }
 
-    $sql = "SELECT * FROM users WHERE name = ? AND email = ?";
+        $sql = "SELECT * FROM users WHERE name = ? AND email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $name, $email);
+        $stmt->execute();
 
-    $stmt = $conn->prepare($sql);
-    $stmt ->bind_param("ss", $name, $email);
-    $stmt->execute();
+        $result = $stmt->get_result();
 
-    $result = $stmt->get_result();
+        if ($result->num_rows === 1) {
+            $row = $result->fetch_assoc(); 
 
-    if ($result->num_rows === 1) {
-        $row = $result->fetch_assoc(); 
-
-        if (password_verify($password, $row['password'])) {
-
-            $_SESSION["loggedin"] = true; 
-
-            header("Location: site.php"); 
-            exit; 
-
+            if (password_verify($password, $row['password'])) {
+                $_SESSION["loggedin"] = true; 
+                header("Location: site.php"); 
+                exit; 
+            }
+        } else {
+            $error = "Usuário ou senha incorretos";
         }
     }
-
-    else {
-        $error = "Usuário ou senha incorretos";
-    }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -51,16 +43,12 @@
 
     <form method="post" action="index.php">
         Nome: <input type="text" name="name" required><br>
-
         E-mail: <input type="email" name="email" required><br>
-
         Senha: <input type="password" name="password" required><br>
-
         <input type="submit" value="Logar">
-
     </form>
+
     <br>
     <a href="cadastrar.php">Ainda não é cadastrado?</a>
-
 </body>
 </html>
