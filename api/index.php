@@ -34,7 +34,7 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
             }
 
             // Certifique-se de finalizar a execução antes do redirecionamento
-            exit(header("Location: painel.php"));
+            exit(header("Location: api/painel.php"));
         } else {
             echo "Falha ao logar! E-mail ou senha incorretos";
         }
