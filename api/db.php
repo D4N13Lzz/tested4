@@ -1,12 +1,12 @@
 <?php
-$host = "ateliesogra.mysql.dbaas.com.br";
-$username = "ateliesogra";
-$password = "Atelie@1020";
-$database = "ateliesogra";
 
-$conn = new mysqli($host, $username, $password, $database);
+$usuario = 'ateliesogra';
+$senha = 'Atelie@1020';
+$database = 'ateliesogra';
+$host = 'ateliesogra.mysql.dbaas.com.br';
 
-if ($conn->connect_error) {
-    die("Falha na conexão com o banco de dados: " . $conn->connect_error);
+$mysqli = new mysqli($host, $usuario, $senha, $database);
+
+if($mysqli->error) {
+    die("Falha ao conectar ao banco de dados: " . $mysqli->error);
 }
-?>
