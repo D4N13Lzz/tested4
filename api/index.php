@@ -33,6 +33,9 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
                 $_SESSION['nome'] = $usuario['nome'];
             }
 
+            // Inicie a sessão novamente após a validação do login
+            session_start();
+
             header("Location: painel.php");
             exit(); // Certifique-se de sair após o redirecionamento
 
