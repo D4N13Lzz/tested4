@@ -1,12 +1,11 @@
 <?php
-
-if(!isset($_SESSION)) {
+// Inicie a sessão no início do script
+if (!isset($_SESSION)) {
     session_start();
 }
 
-if(!isset($_SESSION['id'])) {
+// Verifique se 'id' está definido e não vazio na sessão
+if (!isset($_SESSION['id']) || empty($_SESSION['id'])) {
     die("Você não pode acessar esta página porque não está logado.<p><a href=\"index.php\">Entrar</a></p>");
 }
-
-
 ?>
