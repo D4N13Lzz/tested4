@@ -28,7 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <h2>Login</h2>
     <?php if (isset($erro)) echo "<p style='color:red;'>$erro</p>"; ?>
-    <form method="post" action="login.php">
+    <form method="post" action="">
+        <!-- Remova o atributo 'action' para que o formulário envie para a própria página -->
         <label for="username">Usuário:</label>
         <input type="text" name="username" required><br>
 
