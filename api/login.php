@@ -5,11 +5,12 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
 // Conecte ao banco de dados (substitua pelos seus próprios detalhes de conexão)
-$host = 'seu_host';
-$db   = 'sua_base_de_dados';
-$user = 'seu_usuario';
-$pass = 'sua_senha';
+$host = 'ateliesogra.mysql.dbaas.com.br';
+$db   = 'ateliesogra';
+$user = 'ateliesogra';
+$pass = 'Atelie@1020';
 $charset = 'utf8mb4';
+
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $options = [
