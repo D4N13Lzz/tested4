@@ -5,10 +5,10 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
 // Conecte ao banco de dados (substitua pelos seus próprios detalhes de conexão)
-$host = 'ateliesogra.mysql.dbaas.com.br';
-$db   = 'ateliesogra';
-$user = 'ateliesogra';
-$pass = 'Atelie@1020';
+$host = 'seu_host';
+$db   = 'sua_base_de_dados';
+$user = 'seu_usuario';
+$pass = 'sua_senha';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -27,18 +27,22 @@ try {
 // Receba os dados do formulário Angular
 $data = json_decode(file_get_contents("php://input"));
 
-$username = $data->username;
-$password = $data->password;
+if (isset($data->username) && isset($data->password)) {
+    $username = $data->username;
+    $password = $data->password;
 
-// Consulte o banco de dados para verificar o login
-$stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = ?");
-$stmt->execute([$username]);
-$user = $stmt->fetch();
+    // Consulte o banco de dados para verificar o login
+    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = ?");
+    $stmt->execute([$username]);
+    $user = $stmt->fetch();
 
-if ($user && password_verify($password, $user['senha'])) {
-    $response = ['status' => 'success', 'message' => 'Login bem-sucedido'];
+    if ($user && password_verify($password, $user['senha'])) {
+        $response = ['status' => 'success', 'message' => 'Login bem-sucedido'];
+    } else {
+        $response = ['status' => 'error', 'message' => 'Credenciais inválidas'];
+    }
 } else {
-    $response = ['status' => 'error', 'message' => 'Credenciais inválidas'];
+    $response = ['status' => 'error', 'message' => 'Dados de login ausentes'];
 }
 
 echo json_encode($response);
