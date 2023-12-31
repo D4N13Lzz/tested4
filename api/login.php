@@ -25,11 +25,11 @@ try {
 }
 
 // Receba os dados do formulário Angular
-$data = json_decode(file_get_contents("php://input"));
+$data = json_decode(file_get_contents("php://input"), true);
 
-if (isset($data->username) && isset($data->password)) {
-    $username = $data->username;
-    $password = $data->password;
+if (isset($data['username']) && isset($data['password'])) {
+    $username = $data['username'];
+    $password = $data['password'];
 
     // Consulte o banco de dados para verificar o login
     $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = ?");
