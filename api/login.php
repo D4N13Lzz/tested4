@@ -11,7 +11,6 @@ $user = 'ateliesogra';
 $pass = 'Atelie@1020';
 $charset = 'utf8mb4';
 
-
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -28,8 +27,11 @@ try {
 // Receba os dados do formulário Angular
 $data = json_decode(file_get_contents("php://input"));
 
-file_put_contents("log.txt", print_r($data, true), FILE_APPEND);
+// Especifique um caminho absoluto para o arquivo de log
+$logFilePath = "/api/log.txt";
+file_put_contents($logFilePath, print_r($data, true), FILE_APPEND);
 
+// Verifica se o username e password existem
 if (isset($data->username) && isset($data->password)) {
     $username = $data->username;
     $password = $data->password;
