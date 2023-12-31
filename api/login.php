@@ -28,6 +28,8 @@ try {
 // Receba os dados do formulário Angular
 $data = json_decode(file_get_contents("php://input"));
 
+file_put_contents("log.txt", print_r($data, true), FILE_APPEND);
+
 if (isset($data->username) && isset($data->password)) {
     $username = $data->username;
     $password = $data->password;
